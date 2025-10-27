@@ -1,0 +1,17 @@
+Help me create the package stucture for MVC architecture in this maven project. don't create any files, just packages
+
+can you basic validation to my Task class
+
+can you add unique identifier to make each task uniquely identifiable (UUID filed)
+
+Create a TaskService class in the service package that can create, read, update, and delete tasks. Use a list to store tasks in the memory for now.
+
+update the main app class to demonstrate creating, reading and deleting tasks using TaskService 
+
+Add category, priority level, and status fields to the Task class. Use enums for priority (LOW, MEDIUM, HIGH, URGENT) and status (PENDING, IN_PROGRESS, COMPLETED). Include proper validation and update constructors accordingly
+
+Update TaskService to include methods for filtering tasks by category, priority, and status. Add methods to get tasks grouped by these criteria and to update task status specifically.
+
+can you update the main app class to demonstrate creating tasks with different categories, priorities, and statuses. Show filtering and organizing capabilities
+
+create an interactive command-line interface for our task manager. Include a main menu with options to create, list, update, delete and filter tasks. Make it user-friendly with clear prompts and input validation.
