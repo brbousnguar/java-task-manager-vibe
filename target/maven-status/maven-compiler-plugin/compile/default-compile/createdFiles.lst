@@ -1,1 +1,9 @@
+task/manager/view/TaskManagerCLI.class
+task/manager/model/Task.class
+task/manager/App.class
+task/manager/repository/TaskRepository.class
 task/manager/view/TaskManagerCLI$1.class
+task/manager/service/TaskService.class
+task/manager/model/Priority.class
+task/manager/repository/TaskRepository$1.class
+task/manager/model/Status.class

@@ -17,3 +17,7 @@ can you update the main app class to demonstrate creating tasks with different c
 create an interactive command-line interface for our task manager. Include a main menu with options to create, list, update, delete and filter tasks. Make it user-friendly with clear prompts and input validation.
 
 Add JSON persistance to our Task manager. Iclude Jackson dependecy in pom.xml and create a TaskRepository class to save and load tasks to and from JSON file
+
+create unit tests for the TaskService Class. Test all CRUD operations, filtering methods and edge cases like updating a non exisiting tasks
+
+Create unit tests for the TaskRepository class. Test saving and loading tasks and handling missing files. Use temporary files for testing.
