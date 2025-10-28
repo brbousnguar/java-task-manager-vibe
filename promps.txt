@@ -15,3 +15,5 @@ Update TaskService to include methods for filtering tasks by category, priority,
 can you update the main app class to demonstrate creating tasks with different categories, priorities, and statuses. Show filtering and organizing capabilities
 
 create an interactive command-line interface for our task manager. Include a main menu with options to create, list, update, delete and filter tasks. Make it user-friendly with clear prompts and input validation.
+
+Add JSON persistance to our Task manager. Iclude Jackson dependecy in pom.xml and create a TaskRepository class to save and load tasks to and from JSON file

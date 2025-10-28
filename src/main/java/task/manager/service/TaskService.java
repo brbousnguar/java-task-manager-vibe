@@ -3,20 +3,59 @@ package task.manager.service;
 import task.manager.model.Task;
 import task.manager.model.Priority;
 import task.manager.model.Status;
+import task.manager.repository.TaskRepository;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Service class for managing Task operations
  * Provides CRUD (Create, Read, Update, Delete) functionality for tasks
- * Uses in-memory storage with a List
+ * Uses JSON file persistence via TaskRepository
  */
 public class TaskService {
     
     private final List<Task> tasks;
+    private final TaskRepository repository;
     
     public TaskService() {
+        this.repository = new TaskRepository();
         this.tasks = new ArrayList<>();
+        loadTasksFromFile();
+    }
+    
+    /**
+     * Constructor with custom repository
+     * @param repository custom TaskRepository instance
+     */
+    public TaskService(TaskRepository repository) {
+        this.repository = repository;
+        this.tasks = new ArrayList<>();
+        loadTasksFromFile();
+    }
+    
+    /**
+     * Loads tasks from JSON file into memory
+     */
+    private void loadTasksFromFile() {
+        try {
+            List<Task> loadedTasks = repository.loadTasks();
+            tasks.addAll(loadedTasks);
+        } catch (IOException e) {
+            System.err.println("Warning: Could not load tasks from file: " + e.getMessage());
+            System.err.println("Starting with empty task list.");
+        }
+    }
+    
+    /**
+     * Saves current tasks to JSON file
+     */
+    private void saveTasksToFile() {
+        try {
+            repository.saveTasks(new ArrayList<>(tasks));
+        } catch (IOException e) {
+            System.err.println("Error: Could not save tasks to file: " + e.getMessage());
+        }
     }
     
     /**
@@ -30,6 +69,7 @@ public class TaskService {
     public Task createTask(String title, String description, String dueDate) {
         Task task = new Task(title, description, dueDate);
         tasks.add(task);
+        saveTasksToFile();
         return task;
     }
     
@@ -47,6 +87,7 @@ public class TaskService {
     public Task createTask(String title, String description, String dueDate, String category, Priority priority, Status status) {
         Task task = new Task(title, description, dueDate, category, priority, status);
         tasks.add(task);
+        saveTasksToFile();
         return task;
     }
     
@@ -94,6 +135,7 @@ public class TaskService {
         task.setDescription(description);
         task.setDueDate(dueDate);
         
+        saveTasksToFile();
         return task;
     }
     
@@ -123,6 +165,7 @@ public class TaskService {
         task.setPriority(priority);
         task.setStatus(status);
         
+        saveTasksToFile();
         return task;
     }
     
@@ -136,7 +179,11 @@ public class TaskService {
             return false;
         }
         
-        return tasks.removeIf(task -> task.getId().equals(id));
+        boolean removed = tasks.removeIf(task -> task.getId().equals(id));
+        if (removed) {
+            saveTasksToFile();
+        }
+        return removed;
     }
     
     // FILTERING METHODS
@@ -231,6 +278,7 @@ public class TaskService {
         }
         
         task.setStatus(status);
+        saveTasksToFile();
         return task;
     }
     
@@ -248,6 +296,7 @@ public class TaskService {
         }
         
         task.setPriority(priority);
+        saveTasksToFile();
         return task;
     }
     
@@ -265,7 +314,33 @@ public class TaskService {
         }
         
         task.setCategory(category);
+        saveTasksToFile();
         return task;
+    }
+    
+    /**
+     * Creates a backup of the current tasks file
+     * @param backupSuffix suffix to add to backup filename
+     * @return true if backup was created successfully, false otherwise
+     */
+    public boolean createBackup(String backupSuffix) {
+        try {
+            repository.createBackup(backupSuffix);
+            return true;
+        } catch (IOException e) {
+            System.err.println("Error creating backup: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Gets repository information
+     * @return file path being used for persistence
+     */
+    public String getRepositoryInfo() {
+        return "Tasks file: " + repository.getFilePath() + 
+               " (exists: " + repository.fileExists() + 
+               ", size: " + repository.getFileSize() + " bytes)";
     }
     
 }

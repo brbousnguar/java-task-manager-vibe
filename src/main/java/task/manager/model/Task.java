@@ -1,5 +1,7 @@
 package task.manager.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -36,6 +38,25 @@ public class Task {
     // Constructor with default values for backward compatibility
     public Task(String title, String description, String dueDate) {
         this(title, description, dueDate, "General", Priority.MEDIUM, Status.PENDING);
+    }
+    
+    // JSON deserialization constructor
+    @JsonCreator
+    public Task(
+            @JsonProperty("id") UUID id,
+            @JsonProperty("title") String title,
+            @JsonProperty("description") String description,
+            @JsonProperty("dueDate") String dueDate,
+            @JsonProperty("category") String category,
+            @JsonProperty("priority") Priority priority,
+            @JsonProperty("status") Status status) {
+        this.id = id != null ? id : UUID.randomUUID();
+        setTitle(title);
+        setDescription(description);
+        setDueDate(dueDate);
+        setCategory(category);
+        setPriority(priority);
+        setStatus(status);
     }
 
     public UUID getId() {
