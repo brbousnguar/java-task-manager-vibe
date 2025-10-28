@@ -1,0 +1,25 @@
+[ {
+  "id" : "63089529-804c-47c0-9b08-d8f014e45e3d",
+  "title" : "Task 1",
+  "description" : "Description 1",
+  "dueDate" : "2025-11-02",
+  "category" : "Work",
+  "priority" : "HIGH",
+  "status" : "PENDING"
+}, {
+  "id" : "7362e33b-27da-48bd-a4f9-cb55bb1c9964",
+  "title" : "Task 2",
+  "description" : "Description 2",
+  "dueDate" : "2025-11-07",
+  "category" : "Personal",
+  "priority" : "MEDIUM",
+  "status" : "IN_PROGRESS"
+}, {
+  "id" : "817b3a98-acf8-49ee-b172-636a65ec42d8",
+  "title" : "Task 3",
+  "description" : "Description 3",
+  "dueDate" : "2025-11-12",
+  "category" : "Study",
+  "priority" : "LOW",
+  "status" : "COMPLETED"
+} ]
